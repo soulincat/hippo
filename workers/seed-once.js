@@ -64,11 +64,13 @@ async function main() {
     run();
   });
 
-  // Sync to sheet (full refresh — replaces all rows sorted by score)
-  await safeRun('Sheet sync', async () => {
-    const { fullRefresh } = await import('../sheets/sync.js');
-    await fullRefresh();
-  });
+  // Sync to sheet (skip in CI — no Google credentials)
+  if (!process.env.CI) {
+    await safeRun('Sheet sync', async () => {
+      const { fullRefresh } = await import('../sheets/sync.js');
+      await fullRefresh();
+    });
+  }
 
   // Stats
   const db = (await import('../db/database.js'));
