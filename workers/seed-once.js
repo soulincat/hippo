@@ -80,7 +80,14 @@ async function main() {
   console.log(`\n=== SEED COMPLETE ===`);
   console.log(`Quota used: ${getQuotaUsed()}`);
   console.log(`DB total: ${total} videos | ${scored} scored`);
-  console.log(`Sheet: top 500 by viral score`);
+
+  // Auto-deploy to Vercel (build static + git push)
+  if (!process.env.CI) {
+    await safeRun('Deploy to Vercel', async () => {
+      await import('./deploy-static.js');
+    });
+  }
+
   console.log(`Run again tomorrow to keep building the library.`);
 }
 

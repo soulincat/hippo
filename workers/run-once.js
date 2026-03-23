@@ -95,6 +95,11 @@ async function main() {
     await run();
   });
 
+  // Auto-deploy to Vercel
+  await safeRun('Deploy to Vercel', async () => {
+    await import('./deploy-static.js');
+  });
+
   console.log(`\n=== COMPLETE ===`);
   console.log(`Total quota used: ${getQuotaUsed()}`);
   console.log(`Finished: ${new Date().toISOString()}`);
