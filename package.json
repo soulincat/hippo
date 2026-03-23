@@ -1,0 +1,38 @@
+{
+  "name": "yt-trend-scout",
+  "version": "1.0.0",
+  "description": "YouTube trend research bot for personal finance content",
+  "type": "module",
+  "scripts": {
+    "start": "node workers/scheduler-worker.js",
+    "setup-sheet": "node sheets/setup.js",
+    "search": "node -e \"import('./collectors/youtube-search.js').then(m => m.run())\"",
+    "details": "node -e \"import('./collectors/video-details.js').then(m => m.run())\"",
+    "channels": "node -e \"import('./collectors/channel-details.js').then(m => m.run())\"",
+    "own-channel": "node -e \"import('./collectors/own-channel.js').then(m => m.run())\"",
+    "thumbnails": "node -e \"import('./collectors/thumbnail-downloader.js').then(m => m.run())\"",
+    "analyze": "node -e \"import('./analyzers/outlier-detector.js').then(m => m.run()); import('./analyzers/view-velocity.js').then(m => m.run()); import('./analyzers/virality-scorer.js').then(m => m.run())\"",
+    "categorize": "node -e \"import('./analyzers/content-categorizer.js').then(m => m.run())\"",
+    "analyze-thumbs": "node -e \"import('./analyzers/thumbnail-analyzer.js').then(m => m.run())\"",
+    "similarity": "node -e \"import('./analyzers/similarity-checker.js').then(m => m.run())\"",
+    "sync": "node -e \"import('./sheets/sync.js').then(m => m.run())\"",
+    "report": "node -e \"import('./reporters/weekly-digest.js').then(m => m.run())\"",
+    "report:latest": "node -e \"import('./reporters/weekly-digest.js').then(m => m.printLatest())\"",
+    "check-reminders": "node -e \"import('./reporters/reminder-sender.js').then(m => m.run())\"",
+    "full-run": "node workers/run-once.js",
+    "seed": "node workers/seed-once.js",
+    "refresh-sheet": "node -e \"import('./sheets/sync.js').then(m => m.fullRefresh())\"",
+    "dashboard": "node dashboard/server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "better-sqlite3": "^11.7.0",
+    "dotenv": "^16.4.7",
+    "googleapis": "^144.0.0",
+    "node-cron": "^3.0.3",
+    "sharp": "^0.33.5"
+  }
+}
