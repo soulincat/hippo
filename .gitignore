@@ -7,3 +7,4 @@ credentials.json
 thumbnails/*.jpg
 thumbnails/*.png
 .claude/
+# public/api/*.json files are committed (static data for Vercel)

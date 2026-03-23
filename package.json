@@ -22,7 +22,8 @@
     "full-run": "node workers/run-once.js",
     "seed": "node workers/seed-once.js",
     "refresh-sheet": "node -e \"import('./sheets/sync.js').then(m => m.fullRefresh())\"",
-    "dashboard": "node dashboard/server.js"
+    "dashboard": "node dashboard/server.js",
+    "build-static": "node workers/build-static.js"
   },
   "engines": {
     "node": ">=18.0.0"
